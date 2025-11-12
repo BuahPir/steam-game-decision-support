@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Game Selection DSS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleIndex.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Steam Game Selection</h1>
+        <p class="subtitle">Decision Support System</p>
+        
+        <div class="description">
+            <h3>About This System</h3>
+            <p>This Decision Support System helps you select the best Steam games based on multiple criteria using advanced mathematical methods:</p>
+            <p><strong>AHP (Analytical Hierarchy Process):</strong> Determines the importance weight of each criterion through pairwise comparison.</p>
+            <p><strong>SAW (Simple Additive Weighting):</strong> Ranks game alternatives based on the weighted criteria from AHP.</p>
+        </div>
+        
+        <div class="button-group">
+            <a href="/ahp" class="btn btn-ahp">Step 1: AHP Weighting</a>
+            <a href="/saw" class="btn btn-saw">Step 2: SAW Ranking</a>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <h4>Objective Analysis</h4>
+                <p>Mathematical approach to decision making</p>
+            </div>
+            <div class="feature">
+                <h4>Weighted Criteria</h4>
+                <p>Each criterion gets proper importance</p>
+            </div>
+            <div class="feature">
+                <h4>Clear Rankings</h4>
+                <p>See the best games ranked by score</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

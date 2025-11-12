@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHP Weighting - Steam Game DSS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleAHP.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-btn">Back to Home</a>
+        
+        <h1>AHP - Analytical Hierarchy Process</h1>
+        <p class="subtitle">Step 1: Determine Criteria Weights</p>
+        
+        <div class="criteria-input">
+            <h3>Game Evaluation Criteria</h3>
+            <div class="criteria-list" id="criteriaList">
+            </div>
+            
+            <div class="add-criteria">
+                <input type="text" id="newCriteria" placeholder="Add new criterion...">
+                <button onclick="addCriteria()">Add Criterion</button>
+            </div>
+            
+            <button class="btn btn-primary" onclick="generatePairwiseComparisons()">Generate Comparisons</button>
+        </div>
+        
+        <div class="pairwise-section" id="pairwiseSection">
+            <h3>Pairwise Comparisons</h3>
+            <p class="subtitle">For each pair, select which criterion is more important and by how much.</p>
+            
+            <div id="pairwiseComparisonsContainer">
+            </div>
+            
+            <button class="btn btn-primary" onclick="calculateWeights()">Calculate Weights</button>
+        </div>
+        
+        <div class="results" id="results"></div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/ahp.js') }}" defer></script>
+</body>
+</html>

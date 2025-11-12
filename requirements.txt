@@ -1,0 +1,7 @@
+flask
+numpy
+werkzeug
+requests
+pandas
+beautifulsoup4
+openpyxl

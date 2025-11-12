@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAW Ranking - Steam Game DSS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-btn">Back to Home</a>
+        
+        <h1>SAW - Simple Additive Weighting</h1>
+        <p class="subtitle">Step 2: Rank Game Alternatives</p>
+        
+        <div class="weights-display">
+            <h3>Criteria Weights from AHP</h3>
+            <div id="weightsContainer"></div>
+        </div>
+        
+        <div class="alternatives-section">
+            <h3>Steam Games to Evaluate</h3>
+            
+            <div style="margin-bottom: 20px;">
+                <button class="btn btn-primary" onclick="fetchSteamGames()" style="margin: 0;">
+                    Fetch Default Games List
+                </button>
+                <p style="margin-top: 10px; font-size: 0.9em;">
+                    Click to load the pre-defined list of games from Steam.
+                </p>
+            </div>
+
+            <div class="upload-section">
+                <h4>Or Upload from Excel File</h4>
+                <p style="margin-bottom: 15px; font-size: 0.9em;">
+                    Format: Column A = Alternatives, other columns = Criteria values.<br>
+                    <strong>Important:</strong> The criteria in your Excel file must match the AHP criteria.
+                </p>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="file" id="excelFile" accept=".xlsx, .xls" style="flex: 1;">
+                    <button class="btn btn-secondary" onclick="uploadAndParseExcel()" style="margin: 0;">Upload and Populate</button>
+                </div>
+            </div>
+
+            <div class="upload-section">
+                <h4>Or Add by Steam AppID</h4>
+                <p style="margin-bottom: 15px; font-size: 0.9em;">
+                    Find a game's AppID on its Steam store page URL (e.g., 570 for Dota 2).
+                </p>
+                <div class="add-game">
+                    <input type="number" id="steamAppID" placeholder="Enter Steam AppID (e.g., 570)..." style="flex: 1;">
+                    <button class="btn btn-secondary" onclick="searchByAppID()" style="margin: 0;">Add Game by ID</button>
+                </div>
+            </div>
+            <div class="add-game">
+                <input type="text" id="newGame" placeholder="Or add manually (no data will be auto-filled)...">
+                <button onclick="addGame()">Add Manually</button>
+            </div>
+            
+            <div class="game-list" id="gameList">
+            </div>
+            
+            <button class="btn btn-primary" onclick="generateDecisionMatrix()">Generate Decision Matrix</button>
+        </div>
+        
+        <div class="decision-matrix" id="decisionMatrix">
+            <div class="matrix-table" id="matrixContainer"></div>
+            
+            <div class="criteria-type">
+                <h4>Criteria Type (Benefit or Cost)</h4>
+                <p style="margin-bottom: 15px;">
+                    <strong>Benefit:</strong> Higher values are better (e.g., Rating, Graphics)<br>
+                    <strong>Cost:</strong> Lower values are better (e.g., Price)
+                </p>
+                <div class="type-selector" id="typeSelector"></div>
+            </div>
+            
+            <button class="btn btn-primary" onclick="calculateRanking()">Calculate Ranking</button>
+        </div>
+        
+        <div class="results" id="results"></div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/saw.js') }}" defer></script>
+</body>
+</html>
