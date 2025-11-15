@@ -1,8 +1,19 @@
-let criteria = ['Price', 'Recommendations Total', 'Release Year', 'Min RAM', 'CPU Min', 'GPU Min',
-                'Steam Rating Label', 'Steam Chart Player 30d Avg', 'Steam Chart Current Player'
+// Daftar kriteria tetap (sesuai dengan HTML yang dimodifikasi)
+const criteria = [
+    'Price', 
+    'Recommendations Total', 
+    'Release Year', 
+    'Min RAM', 
+    'CPU Min', 
+    'GPU Min',
+    'Steam Rating Label', 
+    'Steam Chart Player 30d Avg', 
+    'Steam Chart Current Player'
 ];
+
 let weights = [];
 
+// Helper function untuk membuat radio button
 function createRadio(name, value, text, isChecked = false) {
     const radioId = `radio_${name}_${value.toString().replace('.', '_')}`;
     let checkedAttr = isChecked ? 'checked' : '';
@@ -18,35 +29,9 @@ function createRadio(name, value, text, isChecked = false) {
     `;
 }
 
-function addCriteria() {
-    const input = document.getElementById('newCriteria');
-    const criterion = input.value.trim();
-    
-    if (criterion && !criteria.includes(criterion)) {
-        criteria.push(criterion);
-        updateCriteriaList();
-        input.value = '';
-    }
-}
-
-function removeCriteria(button) {
-    const item = button.parentElement;
-    const criterion = item.querySelector('span').textContent.trim();
-    criteria = criteria.filter(c => c !== criterion);
-    updateCriteriaList();
-}
-
-function updateCriteriaList() {
-    const list = document.getElementById('criteriaList');
-    list.innerHTML = criteria.map(c => 
-        `<div class="criteria-tag">
-            <span>${c}</span>
-            <button onclick="removeCriteria(this)">Remove</button>
-        </div>`
-    ).join('');
-}
-
+// Fungsi untuk generate tabel perbandingan
 function generatePairwiseComparisons() {
+    // Validasi keamanan, meskipun dengan hardcode ini pasti > 2
     if (criteria.length < 2) {
         alert('Please add at least 2 criteria');
         return;
@@ -58,6 +43,7 @@ function generatePairwiseComparisons() {
 
     let html = '';
     
+    // Loop membuat perbandingan setiap pasangan kriteria
     for (let i = 0; i < n; i++) {
         for (let j = i + 1; j < n; j++) {
             const name = `compare_${i}_${j}`;
@@ -95,6 +81,7 @@ function generatePairwiseComparisons() {
     document.getElementById('pairwiseSection').style.display = 'block';
 }
 
+// Mengambil nilai dari input radio button menjadi matriks
 function getPairwiseMatrix() {
     const n = criteria.length;
     const matrix = Array.from({ length: n }, () => Array(n).fill(1));
@@ -113,6 +100,7 @@ function getPairwiseMatrix() {
     return matrix;
 }
 
+// Mengirim data ke Python (Flask) untuk perhitungan
 async function calculateWeights() {
     const matrix = getPairwiseMatrix();
     
@@ -143,6 +131,7 @@ async function calculateWeights() {
     }
 }
 
+// Menampilkan hasil perhitungan
 function displayResults(data) {
     const resultsDiv = document.getElementById('results');
     
@@ -171,6 +160,7 @@ function displayResults(data) {
     `;
     
     if (data.is_consistent) {
+        // Simpan bobot ke LocalStorage agar bisa dipakai di halaman selanjutnya (SAW)
         localStorage.setItem('ahp_weights', JSON.stringify(data.weights));
         localStorage.setItem('ahp_criteria', JSON.stringify(data.criteria));
         
@@ -182,7 +172,3 @@ function displayResults(data) {
     resultsDiv.innerHTML = html;
     resultsDiv.style.display = 'block';
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    updateCriteriaList();
-});

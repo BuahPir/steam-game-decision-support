@@ -201,36 +201,22 @@ td input:focus,
     margin-bottom: 20px;
 }
 
-.criteria-tag {
+/* --- MODIFIKASI DIMULAI DISINI --- */
+/* Style ini diganti dari .criteria-tag menjadi .criteria-item */
+/* agar sesuai dengan HTML yang dimodifikasi (yang menggunakan <span>) */
+.criteria-item {
     background: #3a5c7c;
     color: #e6e6e6;
     padding: 8px 15px;
     border-radius: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 500;
+    display: inline-block; /* Diubah dari flex */
+    font-weight: bold;     /* Disatukan dari style .criteria-tag span */
 }
 
-.criteria-tag span {
-    font-weight: bold;
-}
+/* Style untuk .criteria-tag span dan .criteria-tag button dihapus */
+/* karena tidak lagi digunakan di HTML yang baru */
+/* --- MODIFIKASI SELESAI --- */
 
-.criteria-tag button {
-    background: #dc3545;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 3px 8px;
-    font-size: 0.9em;
-    transition: background-color 0.2s;
-}
-
-.criteria-tag button:hover {
-    background: #a71d2a;
-}
 
 .game-list {
     display: flex;
